@@ -1,4 +1,4 @@
-import "../styles/globals.css";
+import "../styles/globals.scss";
 import { ProvideAuth } from "../hooks/useAuth";
 
 function MyApp({ Component, pageProps }) {
