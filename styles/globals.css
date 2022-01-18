@@ -6,10 +6,14 @@
   box-sizing: border-box;
 }
 
-a{
+a {
   text-decoration: none;
 }
 
-li{
+li {
   list-style: none;
+}
+
+html {
+  font-family: "Ubuntu", sans-serif;
 }
