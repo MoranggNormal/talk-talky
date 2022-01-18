@@ -50,7 +50,7 @@ function useProvideAuth() {
       });
   };
 
-  const signOutt = () => {
+  const logOut = () => {
     return signOut(auth)
       .then(() => {})
       .catch((error) => {
@@ -77,6 +77,6 @@ function useProvideAuth() {
   return {
     user,
     signInWithGoogle,
-    signOutt,
+    logOut,
   };
 }

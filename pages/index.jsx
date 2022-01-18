@@ -3,19 +3,17 @@ import { GoogleAuthProvider, getAuth } from "firebase/auth";
 
 import { useAuth } from "../hooks/useAuth";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 export default function Home() {
-  const [test, setTest] = useState([]);
-
-  const { user, signInWithGoogle, signOutt } = useAuth();
+  const { user, signInWithGoogle, logOut } = useAuth();
 
   console.log(user);
 
   return (
     <>
       {user ? (
-        <button onClick={signOutt}>SignOut</button>
+        <button onClick={logOut}>SignOut</button>
       ) : (
         <button onClick={signInWithGoogle}>Login</button>
       )}
