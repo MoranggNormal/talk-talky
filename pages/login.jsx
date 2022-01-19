@@ -4,7 +4,7 @@ import nookies from "nookies";
 import { useAuth } from "../hooks/useAuth";
 import { verifyIdToken } from "../firebaseAdmin";
 
-const login = ({ storedUser }) => {
+const Login = ({ storedUser }) => {
   const { signInWithGoogle, logOut, user } = useAuth();
 
   return (
@@ -20,7 +20,7 @@ const login = ({ storedUser }) => {
   );
 };
 
-export default login;
+export default Login;
 
 export async function getServerSideProps(context) {
   try {
