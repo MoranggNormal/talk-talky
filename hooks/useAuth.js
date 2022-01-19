@@ -1,12 +1,17 @@
 import React, { useState, useEffect, useContext, createContext } from "react";
 
+import Router from "next/router";
+
 import {
   GoogleAuthProvider,
   getAuth,
   signInWithPopup,
   onAuthStateChanged,
   signOut,
+  onIdTokenChanged,
 } from "firebase/auth";
+
+import { setCookie } from "nookies";
 
 const authContext = createContext();
 
@@ -34,9 +39,8 @@ function useProvideAuth() {
     const provider = new GoogleAuthProvider();
 
     return signInWithPopup(auth, provider)
-      .then((result) => {
-        const user = result.user;
-        console.log(user);
+      .then(() => {
+        Router.reload();
       })
       .catch((error) => {
         // Handle Errors here.
@@ -52,7 +56,9 @@ function useProvideAuth() {
 
   const logOut = () => {
     return signOut(auth)
-      .then(() => {})
+      .then(() => {
+        Router.push("/");
+      })
       .catch((error) => {
         console.log(error);
       });
@@ -63,11 +69,14 @@ function useProvideAuth() {
   // ... component that utilizes this hook to re-render with the ...
   // ... latest auth object.
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = auth.onIdTokenChanged(async (user) => {
       if (user) {
+        const token = await user.getIdToken();
+        setCookie(undefined, "talk-token", token);
         setUser(user);
       } else {
         setUser(false);
+        setCookie(undefined, "talk-token", "");
       }
     });
     // Cleanup subscription on unmount
